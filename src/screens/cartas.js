@@ -23,11 +23,23 @@ function getItem(data, index){
 function Item({dat}){
   console.log(dat)
   return(
-  <View>
-    <Text>Matricula: {dat.item.matricula }</Text>
-    <Text>Nombre: {dat.item.nombre}</Text>
-    <Text>Direccion: {dat.item.direccion}</Text>
-    <Text>Telefono: {dat.item.telefono}</Text>
+  <View style={styles.virtualizedlist}>
+    <View style={styles.virtualizedlist_group}>
+      <Text style={styles.virtualizedlist_title}>Matricula:</Text> 
+      <Text style={styles.virtualizedlist_value}>{dat.item.matricula }</Text>
+    </View>
+    <View style={styles.virtualizedlist_group}>
+      <Text style={styles.virtualizedlist_title}>Nombre:</Text> 
+      <Text style={styles.virtualizedlist_value}>{dat.item.nombre }</Text>
+    </View>
+    <View style={styles.virtualizedlist_group}>
+      <Text style={styles.virtualizedlist_title}>Dirección:</Text> 
+      <Text style={styles.virtualizedlist_value}>{dat.item.direccion }</Text>
+    </View>
+    <View style={styles.virtualizedlist_group}>
+      <Text style={styles.virtualizedlist_title}>Telefono:</Text> 
+      <Text style={styles.virtualizedlist_value}>{dat.item.telefono }</Text>
+    </View>
   </View>
 )}
 

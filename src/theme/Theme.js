@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
       padding: 15,
       margin: 12,
       borderWidth: 2,
-      borderColor: '#000',
+      borderColor: colores_cartas.primario,
       backgroundColor: '#fff',
       borderRadius: 5
     },
@@ -61,6 +61,38 @@ export const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 20,
       fontWeight: 'bold'
+    },
+    virtualizedlist:{
+      backgroundColor: '#fff',
+      padding: 20,
+      paddingStart: 30,
+      paddingEnd: 30,
+      margin: 10,
+      borderWidth: 2,
+      borderColor: colores_cartas.primario
+    },
+    virtualizedlist_title:{
+      color: colores_cartas.terciario,
+      fontWeight: '600',
+      fontSize: 20,
+      marginStart: 15
+    },
+    virtualizedlist_group:{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    },
+    virtualizedlist_value:{
+      color: colores_cartas.primario,
+      fontSize: 15,
+      fontWeight: '500',
+      marginEnd: 18,
+      marginStart: 20,
+      flex: 1,
+      flexWrap: 'wrap',
+      textAlign: 'right'
     }
+
   })
 
