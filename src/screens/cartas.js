@@ -23,7 +23,6 @@ function getItem(data, index){
 }
 
 function Item({dat}){
-  console.log(dat)
   return(
   <View style={styles.virtualizedlist}>
     <View style={styles.virtualizedlist_group}>
