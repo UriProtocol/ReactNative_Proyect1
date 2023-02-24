@@ -1,7 +1,7 @@
 // import React from "react"
 import { StyleSheet } from "react-native"
 
-const colores_cartas = {
+export const colores_cartas = {
   fondo: '#bbbbbb',
   secundario: '#666666',
   primario: '#1a1a1a',
@@ -54,7 +54,8 @@ export const styles = StyleSheet.create({
     cartas_boton: {
       backgroundColor: colores_cartas.terciario,
       padding: 15,
-      margin: 15,
+      margin: 10,
+      width: '45%'
     },
     cartas_boton_text:{
       color: '#fff',
@@ -69,7 +70,8 @@ export const styles = StyleSheet.create({
       paddingEnd: 30,
       margin: 10,
       borderWidth: 2,
-      borderColor: colores_cartas.primario
+      borderColor: colores_cartas.primario,
+      Height: 50
     },
     virtualizedlist_title:{
       color: colores_cartas.terciario,

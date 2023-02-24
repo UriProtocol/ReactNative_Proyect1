@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Text, TextInput, ToastAndroid, TouchableOpacity, View, VirtualizedList } from 'react-native'
-import { styles } from '../theme/Theme'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { styles, colores_cartas } from '../theme/Theme'
 
 const initialState = {
   matricula: '',
@@ -9,7 +10,8 @@ const initialState = {
   telefono: ''
 }
 const initialStateBotones = {
-  agregar: true
+  agregar: true,
+  campoMatricula: true
 }
 
 function getItem(data, index){
@@ -53,6 +55,8 @@ const Cartas = () => {
   const [datos, setDatos] = useState([])
   const [alumno, setAlumno] = useState(initialState)
   const [botones, setBotones] = useState(initialStateBotones)
+
+  let mat = ''
   
 
   function handleChange(nombre, valor){
@@ -70,8 +74,49 @@ const Cartas = () => {
       ToastAndroid.show('Ingresa datos', ToastAndroid.SHORT)
 
     }
+  }
+  function handleLimpiar(){
+    setAlumno(initialState)
+    setBotones({...botones, campoMatricula: true}) 
+  }
+  function handleBuscar(){
+    for(const d of datos){
+      if(alumno.matricula === d.matricula) {
+        setAlumno(d)
+        mat = alumno.matricula
+        setBotones({...botones, campoMatricula: false})
+        return 
+      }else{
+        ToastAndroid.show('No se encontró la matricula', ToastAndroid.SHORT)
+      }
+    }
+  }
+  function handleEliminar(){
+    const arr = [...datos]
+    arr.forEach((a, index) => {
+      if(a.matricula===alumno.matricula){
+        arr.splice(index, 1)
+        setDatos(arr)
+        ToastAndroid.show('Registro eliminado', ToastAndroid.SHORT)
+        handleLimpiar()
+      }else{
+        ToastAndroid.show('El registro no existe', ToastAndroid.SHORT)
+      }
+    })
+  }
+  function handleModificar(){
+    const arr = [...datos]
+    for(const a of arr){
+      if(a.matricula === alumno.matricula){
+        a.nombre = alumno.nombre
+        a.direccion = alumno.direccion
+        a.telefono = alumno.telefono
 
-    // setDatos(...datos, alumno)
+        setDatos(arr)
+        handleLimpiar()
+        ToastAndroid.show('registro modificado', ToastAndroid.SHORT)
+      }
+    }
   }
 
   const {matricula, nombre, direccion, telefono} = alumno
@@ -86,6 +131,7 @@ const Cartas = () => {
       placeholder='Matricula'
       value={matricula}
       onChangeText={valor => handleChange('matricula', valor)}
+      editable={botones.campoMatricula}
       />
       <TextInput 
       style={styles.cartas_input}
@@ -108,9 +154,26 @@ const Cartas = () => {
       onChangeText={valor => handleChange('telefono', valor)}
       />
 
-      <TouchableOpacity style={styles.cartas_boton} onPress={handleSubmit}>
-        <Text style={styles.cartas_boton_text}>Agregar</Text>
-      </TouchableOpacity>
+      <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+        <TouchableOpacity style={styles.cartas_boton} onPress={handleSubmit}>
+          <Text style={styles.cartas_boton_text}>Agregar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{...styles.cartas_boton, backgroundColor: colores_cartas.alerta}} onPress={handleLimpiar}>
+          <Text style={styles.cartas_boton_text}>Limpiar</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+        <TouchableOpacity style={{...styles.cartas_boton, backgroundColor: 'lightblue'}} onPress={handleBuscar}>
+          <Text style={styles.cartas_boton_text}>Buscar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{...styles.cartas_boton, backgroundColor: 'red'}} onPress={handleEliminar}>
+          <Text style={styles.cartas_boton_text}>Eliminar</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={{...styles.cartas_boton, backgroundColor: '#ffd14f'}} onPress={handleModificar}>
+          <Text style={styles.cartas_boton_text}>Modificar</Text>
+        </TouchableOpacity>
+
       <VirtualizedList 
         data={datos}
         getItem={getItem}
